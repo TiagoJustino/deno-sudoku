@@ -1,7 +1,15 @@
-# Fresh project
+# Sudoku puzzle generator and solver
 
-Your new Fresh project is ready to go. You can follow the Fresh "Getting
-Started" guide here: https://fresh.deno.dev/docs/getting-started
+### Source for algorithms:
+
+- https://www.101computing.net/sudoku-generator-algorithm/
+- https://www.101computing.net/backtracking-algorithm-sudoku-solver/
+
+### Technologies
+
+This project was created with the aim of learning Deno Fresh.
+
+For more information on Fresh, visit Fresh "Getting Started" guide on: https://fresh.deno.dev/docs/getting-started
 
 ### Usage
 
