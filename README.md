@@ -1,5 +1,7 @@
 # Sudoku puzzle generator and solver
 
+Live preview: https://deno-sudoku.deno.dev/
+
 ### Source for algorithms:
 
 - https://www.101computing.net/sudoku-generator-algorithm/
@@ -7,9 +9,11 @@
 
 ### Technologies
 
-This project was created with the aim of learning Deno Fresh.
+This project was created with the aim of learning Deno Fresh and Deno Deploy.
 
 For more information on Fresh, visit Fresh "Getting Started" guide on: https://fresh.deno.dev/docs/getting-started
+
+For more information on Deno Deploy, visit https://deno.com/deploy
 
 ### Usage
 
