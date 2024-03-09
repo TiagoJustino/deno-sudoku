@@ -5,7 +5,9 @@
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $index from "./routes/index.tsx";
-
+import * as $bt from "./islands/bt.tsx";
+import * as $grid from "./islands/grid.tsx";
+import * as $sudoku from "./islands/sudoku.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -14,7 +16,11 @@ const manifest = {
     "./routes/_app.tsx": $_app,
     "./routes/index.tsx": $index,
   },
-  islands: {},
+  islands: {
+    "./islands/bt.tsx": $bt,
+    "./islands/grid.tsx": $grid,
+    "./islands/sudoku.tsx": $sudoku,
+  },
   baseUrl: import.meta.url,
 } satisfies Manifest;
 

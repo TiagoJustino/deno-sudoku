@@ -26,6 +26,13 @@ function randint(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+let sleepSetTimeout_ctrl: number;
+
+function sleep(ms: number) {
+    clearInterval(sleepSetTimeout_ctrl);
+    return new Promise(resolve => sleepSetTimeout_ctrl = setTimeout(resolve, ms));
+}
+
 type Pair = [number, number];
 type Grid = Array<Array<number | null>>;
 
@@ -34,6 +41,7 @@ class SudokuGrid {
     attempts;
     counter = 1;
     numberList=[1,2,3,4,5,6,7,8,9];
+    finished = false;
 
     constructor() {
         for(let i = 0; i < 9; i++) {
@@ -69,15 +77,6 @@ class SudokuGrid {
                 this.attempts -= 1;
             }
         }
-
-        /*
-        const ret = this.solveSudoku(this.grid);
-        if(ret) {
-            console.log("Sudoku Grid Solved");
-        } else {
-            console.log("Cannot Solve Sudoku Grid");
-        }
-        */
     }
 
     solveGrid(grid: Grid) {
@@ -108,20 +107,23 @@ class SudokuGrid {
         return false;
     }
 
-    solveSudoku(grid: Grid) {
+    async solveSudoku(sleepVal?: number) {
         let row, col;
         for(let i = 0; i < 81; i++) {
             row = Math.floor(i / 9);
             col = i % 9;
-            if(grid[row][col] == null) {
+            if(this.grid[row][col] == null) {
                 for(let value = 1; value < 10; value++) {
-                    if(!this.valueInRow(grid, value, row) && !this.valueInCol(grid, value, col) && !this.valueInSquare(grid, value, row, col)) {
-                        grid[row][col] = value;
-                        if(this.checkGrid(grid)) {
-                            console.log("Grid Complete and Checked");
+                    if(!this.valueInRow(this.grid, value, row) && !this.valueInCol(this.grid, value, col) && !this.valueInSquare(this.grid, value, row, col)) {
+                        this.grid[row][col] = value;
+                        if(sleepVal) {
+                            await sleep(sleepVal);
+                        }
+                        if(this.checkGrid(this.grid)) {
+                            this.finished = true;
                             return true;
                         } else {
-                            if(this.solveSudoku(grid)) {
+                            if(await this.solveSudoku(sleepVal)) {
                                 return true;
                             }
                         } 
@@ -130,9 +132,11 @@ class SudokuGrid {
                 break;
             }
         }
-        console.log("Backtrack");
         if(row && col) {
-            grid[row][col] = null;
+            this.grid[row][col] = null;
+            if(sleepVal) {
+                await sleep(sleepVal);
+            }
         }
         return false;
     }
